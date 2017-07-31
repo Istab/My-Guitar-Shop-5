@@ -1,18 +1,18 @@
 <?php
 class Database {
-    private static $dsn = 'mysql:host=localhost;dbname=my_guitar_shop1';
-    private static $username = 'mgs_user';
-    private static $password = 'pa55word';
     private static $db;
 
     private function __construct() {}
 
     public static function getDB () {
+        $secrets = fopen("../.secrets", "r");
+        $username = rtrim(fgets($secrets));
+        $password = rtrim(fgets($secrets));
+        $dsn = rtrim(fgets($secrets));
+
         if (!isset(self::$db)) {
             try {
-                self::$db = new PDO(self::$dsn,
-                                     self::$username,
-                                     self::$password);
+                self::$db = new PDO($dsn, $username, $password);
             } catch (PDOException $e) {
                 $error_message = $e->getMessage();
                 include('../errors/database_error.php');
