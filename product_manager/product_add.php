@@ -27,7 +27,9 @@
         <br>
 
         <label>List Price:</label>
-        <input type="input" name="price">
+        <input type="input" name="price"
+                value="<?php echo htmlspecialchars($price);?>">
+        <?php echo $fields->getField('price')->getHTML(); ?>
         <br>
 
         <label>&nbsp;</label>

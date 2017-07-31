@@ -11,6 +11,7 @@ $validate = new Validate();
 $fields = $validate->getFields();
 $fields->addField('code', 'Must be less than 11 characters');
 $fields->addField('name');
+$fields->addField('price');
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
@@ -55,10 +56,11 @@ if ($action == 'list_products') {
             FILTER_VALIDATE_INT);
     $code = filter_input(INPUT_POST, 'code');
     $name = filter_input(INPUT_POST, 'name');
-    $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+    $price = filter_input(INPUT_POST, 'price');
 
     $validate->text('code', $code, true, 1, 10);
     $validate->text('name', $name);
+    $validate->number('price', $price);
 
     if ($fields->hasErrors()) {
         $categories = CategoryDB::getCategories();
